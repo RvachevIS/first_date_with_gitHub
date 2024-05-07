@@ -6,4 +6,5 @@ def get_diff_from_comfortable_temperature(*, temperature: int) -> int:
 
 
 if __name__ == '__main__':
-    print(get_diff_from_comfortable_temperature(temperature=20))
+    print(
+        get_diff_from_comfortable_temperature(temperature=20))

@@ -1,20 +1,16 @@
-def func_with_all_arguments(
-                            x: int,
-                            y: int,
-                            *args,
-                            value: int = 6,
-                            **kwargs
-):
-    print(x, y)
-    print(args)
-    print(value)
-    print(kwargs)
-person = {
-    "city": "Vladimir",
-    "first_name": "Ivan",
-    "last_name": "Rvachev",
-}
-func_with_all_arguments(1,
-                        2,
-                        3, 4, 5,
-                        **person)
+def modify_dict(old_dict: dict, **kwargs) -> tuple[dict, bool]:
+    is_modify = False
+
+    for key, value in kwargs.items():
+        if old_dict.get(key) != value:
+            old_dict[key] = value
+            is_modify = True
+
+    return old_dict, is_modify
+
+
+product = {"id": 1, "name": "Laptop", "price": 999.99}
+structure = modify_dict(old_dict=product, name="Laptop")
+
+print(structure)
+print(type(structure))

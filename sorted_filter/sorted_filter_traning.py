@@ -1,16 +1,11 @@
-people = [
-    {"name": "Alice", "age": 25},
-    {"name": "Peter", "age": 23},
-    {"name": "Sergey", "age": 23},
-    {"name": "Vanya", "age": 31}
-]
+def is_even(n: int) -> bool:
+    return n % 2 == 0
 
 
-def sort_by_age_name(element: dict) -> tuple[int, str]:
-    return element["age"], element["name"]
+numbers = [1, 2, 8, 3, 56, 7, 31, 228]
 
-
-sorted_people = sorted(people, key=sort_by_age_name)
+filtered_numbers = list(filter(is_even, numbers))
 
 if __name__ == '__main__':
-    print(sorted_people)
+    print(type(filtered_numbers))
+    print(filtered_numbers)

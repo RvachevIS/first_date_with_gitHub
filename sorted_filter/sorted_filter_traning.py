@@ -1,11 +1,19 @@
-def is_even(n: int) -> bool:
-    return n % 2 == 0
+people = [
+    {"name": "Alice", "age": 18},
+    {"name": "Peter", "age": 12},
+    {"name": "Sergey", "age": 23},
+    {"name": "Vanya", "age": 41},
+    {"name": "Pisya", "age": 55},
+    {"name": "Hui", "age": 80},
+    {"name": "Vagia", "age": 13}
+]
 
 
-numbers = [1, 2, 8, 3, 56, 7, 31, 228]
+def is_adult(person: dict) -> bool:
+    return person["age"] >= 18
 
-filtered_numbers = list(filter(is_even, numbers))
+filtered_people = list(filter(is_adult, people))
+
 
 if __name__ == '__main__':
-    print(type(filtered_numbers))
-    print(filtered_numbers)
+    print(filtered_people)

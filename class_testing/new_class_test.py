@@ -1,3 +1,10 @@
+# реализовать два вида существ со своими перками
+# эльфы base_health_points = 50, base_attack_power = 15, base_defence = 10
+# перк: эльфы бьют по существам у которых меньше 30 хп, в два раза сильнее
+#
+# орки base_health_points = 50, base_attack_power 15, base_defence = 15
+# перк: орки увеличивают защиту в три раза, если у них меньше 50 хп
+
 class Character:
     def __init__(self, *, level: int) -> None:
         self.level = level
@@ -6,16 +13,32 @@ class Character:
 
 
     def attack(self, *, target: "Character") -> None:
-        print(
-            f"{self.character_name} attacks {target.character_name} ({target.health_points} health_points) "
-            f"with {self.attack_power} power"
-        )
-        target.health_points -= self.attack_power
-        print(f"After attack {self.character_name} hp has {target.health_points}")
+        target.got_damage(damage=self.attack_power)
+
+
+    def got_damage(self, *, damage: int) ->None:
+        damage = damage * (100 - self.defence) // 100
+        damage = round(damage)
+        self.health_points = self.health_points - damage
 
 
     def is_alive(self) -> bool:
         return self.health_points > 0
+
+
+    @property
+    def defence(self) -> int:
+        defence = self.base_defence * self.level
+        return defence
+
+
+    @property
+    def max_health_points(self) -> int:
+        return self.level * self.base_health_points
+
+
+    def health_points_percent(self):
+        return 100 * self.health_points / self.max_health_points
 
 
     def __str__(self) -> str:
@@ -27,10 +50,28 @@ class Ork(Character):
     base_health_points = 100
     base_attack_power = 10
     character_name = "Ork"
+    base_defence = 15
+    @property
+    def defence(self) -> int:
+        defence = super().defence
+        if self.health_points < 50:
+            defence *= 3
+        return defence
+
+
 class Elf(Character):
     base_health_points = 50
     base_attack_power = 15
     character_name = "Elf"
+    base_defence = 10
+
+
+    def attack(self, *, target: "Character") -> None:
+        attack_power = self.attack_power
+        if target.health_points_percent() < 30:
+            attack_power = self.attack_power * 3
+#        print(f"Elf attack_power = {attack_power}")
+        target.got_damage(damage=attack_power)
 
 
 def fight(*, character_1: Character, character_2: Character) -> None:
@@ -42,6 +83,7 @@ def fight(*, character_1: Character, character_2: Character) -> None:
     print(f"Character 1: {character_1}, is alive: {character_1.is_alive()}")
     print(f"Character 2: {character_2}, is alive: {character_2.is_alive()}")
 
-ork = Ork(level=15)
-elf = Elf(level=19)
-fight(character_1=ork, character_2=elf)
+
+ork_1 = Ork(level=1)
+elf_1 = Elf(level=1)
+fight(character_1=ork_1, character_2=elf_1)

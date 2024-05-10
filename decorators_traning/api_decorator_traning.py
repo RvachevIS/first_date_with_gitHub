@@ -23,6 +23,8 @@ def get_dangerous_hours(*, weather_by_hour: list[dict]) -> list[dict]:
         if uvindex >= 3:
             dangerous_hours.append({"time": time, "uvindex": uvindex, "temperature": celsius_temperature})
     return dangerous_hours
+
+
 date = "2024-05-10"
 city = "Vladimir, RU"
 weather_by_hours = get_weather_by_hours_for_day_from_api(date=date, city=city)

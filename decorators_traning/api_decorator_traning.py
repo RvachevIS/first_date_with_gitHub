@@ -1,8 +1,25 @@
+import time
+
 import requests
+from requests.exceptions import RequestException
+import time
 
 API_KEY = "KQ6Q3SX7AV2UKYUQNG7VTLXW6"
 
 
+def retry(func):
+    def wrapper_retry(*args, **kwargs):
+        retryes = [5, 30]
+        for seconds in retryes:
+            try:
+                return func(*args, **kwargs)
+            except RequestException:
+                print(f"Failed to get data. Retrying in {seconds} seconds!")
+                time.sleep(seconds)
+    return wrapper_retry
+
+
+@retry
 def get_weather_by_hours_for_day_from_api (*, date: str, city: str) -> list[dict]:
     url = f"https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/{city}/{date}/{date}?unitGroup=us&key={API_KEY}"
     response = requests.get(url)

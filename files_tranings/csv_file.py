@@ -1,8 +1,13 @@
 import csv
 
-file = open("files/persons.csv", "r")
-csv_dict_reader = csv.DictReader(file)
 
-for row in csv_dict_reader:
-        print(row["name"], row["age"], row["occupation"])
+persons = [
+        {"name": "Olga", "age": 64, "occupation": "Mother"}
+]
+
+file = open("files/persons.csv", "a")
+fields = ["name", "age", "occupation"]
+csv_dict_writer = csv.DictWriter(file, fieldnames=fields)
+csv_dict_writer.writerows(persons)
+
 file.close()

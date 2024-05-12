@@ -1,10 +1,8 @@
 import csv
 
-rows = [['name', 'age', 'occupation'],
-        ['Ivan', 31, 'QA Engineer'],
-        ['Mary', 25, 'Nail Master']]
-file = open("files/persons.csv", "w")
-csv_writer = csv.writer(file)
-csv_writer.writerows(rows)
+file = open("files/persons.csv", "r")
+csv_dict_reader = csv.DictReader(file)
 
+for row in csv_dict_reader:
+        print(row["name"], row["age"], row["occupation"])
 file.close()

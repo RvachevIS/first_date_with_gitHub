@@ -2,6 +2,7 @@ from telebot import TeleBot
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 import requests
 
+
 TOKEN = "7096557199:AAHhD1zrziMHepeMEWnMauEAh7eTieOW-00"
 
 CRYPTO_NAME_TO_TICKER = {

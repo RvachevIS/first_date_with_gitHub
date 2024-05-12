@@ -10,4 +10,5 @@ fields = ["name", "age", "occupation"]
 csv_dict_writer = csv.DictWriter(file, fieldnames=fields)
 csv_dict_writer.writerows(persons)
 
+
 file.close()
